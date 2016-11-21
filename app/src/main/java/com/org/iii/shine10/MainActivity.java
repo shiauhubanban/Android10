@@ -50,9 +50,8 @@ public class MainActivity extends AppCompatActivity {
         }
 
     }
+
     //callback
-
-
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
@@ -80,7 +79,7 @@ public class MainActivity extends AppCompatActivity {
     }
     //內存 write
     public void test3(View v){
-        // 在 內存空間之下的 FileSystem
+        // 在內存空間之下的 FileSystem
         try {
             FileOutputStream fout = openFileOutput("Shine.data",MODE_PRIVATE);
             fout.write("Hello Shine".getBytes());
@@ -108,6 +107,31 @@ public class MainActivity extends AppCompatActivity {
             Log.v("shine","test04:"+ e.toString());
         }
     }
+    //寫入
+    public void test5(View v){
+        try {
+            FileOutputStream fout =
+                    new FileOutputStream(new File(sdroot,"file1.txt"));
+            fout.write("Hello1".getBytes());
+            fout.flush();
+            fout.close();
+            Toast.makeText(this,"Save1 OK",Toast.LENGTH_SHORT).show();
+        } catch (IOException e) {
+            Log.v("shine","test5:"+e.toString());
+        }
 
+    }
+    //寫入
+    public void test6(View v){
+        try {
+            FileOutputStream fout =new FileOutputStream(new File(sdroot,"file1.txt"));
+            fout.write("Hello1".getBytes());
+            fout.flush();
+            fout.close();
+            Toast.makeText(this,"Save1 OK",Toast.LENGTH_SHORT).show();
+        } catch (IOException e) {
+            Log.v("shine","test6:"+e.toString());
+        }
 
+    }
 }
