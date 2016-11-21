@@ -132,7 +132,7 @@ public class MainActivity extends AppCompatActivity {
     //寫入
     public void test6(View v){
         try {
-            FileOutputStream fout =new FileOutputStream(new File(sdroot,"file2.txt"));
+            FileOutputStream fout =new FileOutputStream(new File(approot,"file2.txt"));
             fout.write("Hello2".getBytes());
             fout.flush();
             fout.close();
