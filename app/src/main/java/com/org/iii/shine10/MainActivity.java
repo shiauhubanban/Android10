@@ -1,6 +1,7 @@
 package com.org.iii.shine10;
 
 import android.content.SharedPreferences;
+import android.os.Environment;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -27,6 +28,8 @@ public class MainActivity extends AppCompatActivity {
         tv = (TextView)findViewById(R.id.tv);
         sp = getSharedPreferences("gamedata",MODE_PRIVATE);
         editor = sp.edit();
+        String state = Environment.getExternalStorageState();
+        Log.v("shine",state);
     }
 
     // 偏好設定 => save
