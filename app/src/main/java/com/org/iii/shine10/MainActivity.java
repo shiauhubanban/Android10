@@ -18,6 +18,7 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
@@ -141,4 +142,21 @@ public class MainActivity extends AppCompatActivity {
         }
 
     }
+    public void test7(View v){
+        tv.setText("");
+        try {
+            BufferedReader reader =
+                    new BufferedReader(
+                            new FileReader(
+                                    new File(approot,"file2.txt")));
+            String line;
+            while((line=reader.readLine())!= null) {
+            tv.append(line + "\n");
+            }
+            reader.close();
+        } catch (IOException e) {
+            Log.v("shine", "test7():" +e.toString());
+        }
+    }
+
 }
