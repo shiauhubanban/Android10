@@ -1,7 +1,12 @@
 package com.org.iii.shine10;
 
+import android.Manifest;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.os.Environment;
+import android.support.annotation.NonNull;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -10,6 +15,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -19,6 +25,7 @@ public class MainActivity extends AppCompatActivity {
     private SharedPreferences sp;
     private SharedPreferences.Editor editor;
     private TextView tv;
+    private File sdroot;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,8 +35,32 @@ public class MainActivity extends AppCompatActivity {
         tv = (TextView)findViewById(R.id.tv);
         sp = getSharedPreferences("gamedata",MODE_PRIVATE);
         editor = sp.edit();
-        String state = Environment.getExternalStorageState();
-        Log.v("shine",state);
+
+        sdroot = Environment.getExternalStorageDirectory();
+        //String state = Environment.getExternalStorageState();
+        Log.v("shine",sdroot.getAbsolutePath());
+
+        // 以下是檢查危險權限
+        if(ContextCompat.checkSelfPermission(
+                this, Manifest.permission.READ_EXTERNAL_STORAGE)
+                != PackageManager.PERMISSION_GRANTED){
+            ActivityCompat.requestPermissions(this,
+                    new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE,
+                            Manifest.permission.READ_EXTERNAL_STORAGE},123);
+        }
+
+    }
+    //callback
+
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        for (int grantResalt : grantResults) {
+            if (grantResalt == PackageManager.PERMISSION_GRANTED) {
+            Log.v("shine", "OK");
+        }
+      }
     }
 
     // 偏好設定 => save
