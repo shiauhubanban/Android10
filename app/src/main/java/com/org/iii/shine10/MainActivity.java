@@ -3,9 +3,14 @@ package com.org.iii.shine10;
 import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
 
 public class MainActivity extends AppCompatActivity {
     private SharedPreferences sp;
@@ -37,5 +42,23 @@ public class MainActivity extends AppCompatActivity {
         tv.setText("Stage: " + stage + "\n" +
                 "User: " + name);
     }
+    //內存 write
+    public void test3(View v){
+        // 在 內存空間之下的 FileSystem
+        try {
+            FileOutputStream fout = openFileOutput("Shine data",MODE_PRIVATE);
+            fout.write("Hello Shine".getBytes());
+            fout.flush();
+            fout.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+            Log.v("shine",e.toString());
+        }
+    }
+    //內存 read
+    public void test4(View v){
+
+    }
+
 
 }
